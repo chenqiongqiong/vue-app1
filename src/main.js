@@ -4,6 +4,7 @@ import Foo from './components/Foo.vue';
 import Bar from './components/Bar.vue';
 import NotFoundComponent from './components/NotFoundComponent.vue';
 import VueRouter from 'vue-router';
+import './plugins/element.js'
 
 Vue.use(VueRouter);
 
