@@ -3,6 +3,7 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <el-input v-model="newMsg" @keyup.enter.native="send"/>
     <el-button @click="send">send</el-button>
+    <el-button @click="pluginMehod">plugin</el-button>
     <div
       v-for="msg in msgList"
       :key="msg.message"
@@ -11,15 +12,43 @@
     >
       {{msg.from}}:  {{msg.message}}
     </div>
-    <button class="mybtn">click</button>
+    <button class="mybtn">{{btnMsg}}</button>
     <div class="animation animated">hello world</div>
+
+    <slot-comp>
+      <template v-slot:header="headerProp">
+        <div>{{headerProp.content}}</div>
+      </template>
+      <template v-slot:body="bodyProp">
+        <h3>{{bodyProp.body}}</h3>
+        <h3>{{bodyProp.body_}}</h3>
+      </template>
+    </slot-comp>
+    <tes-foo  ttt='iooio'/>
+    <bar />
+
   </div>
 </template>
 
 <script>
   /* eslint-disable */
+  import Vue from 'vue';
   import HelloWorld from "./components/HelloWorld.vue";
+  import Bar from './components/Bar.vue';
+  import SlotComp from './components/slotComp.vue';
   import { Input, Button } from 'element-ui';
+
+  Vue.component('tes-foo', {
+    data() {
+      return { bar: 666 }
+    },
+    // template: '<button>{{bar}}</button>',
+    render(h) {
+      return (
+        <button>{this.bar}</button>
+      )
+    },
+  })
 
   export default {
     name: "app",
@@ -27,6 +56,8 @@
       HelloWorld,
       ElInput: Input,
       ElButton: Button,
+      SlotComp,
+      Bar,
     },
     data() {
       return {
@@ -35,6 +66,7 @@
         newMsg: '123',
         href: window.location.href,
         ani: false,
+        btnMsg: 'enter',
       }
     },
     methods: {
@@ -44,6 +76,9 @@
           this.newMsg = '';
         }
       },
+      pluginMehod() {
+        this.$testMethod(666);
+      }
     },
     mounted() {
       const animateDom = document.querySelector('.animation');
@@ -52,9 +87,11 @@
         if (Array.from(animateDom.classList).includes('flipOutX')) {
           animateDom.classList.remove('flipOutX');
           animateDom.classList.add('flipInX');
+          this.btnMsg = 'leave';
         } else if(Array.from(animateDom.classList).includes('flipInX')){
           animateDom.classList.remove('flipInX');
           animateDom.classList.add('flipOutX');
+          this.btnMsg = 'enter';
         } else {
           animateDom.classList.add('flipInX');
         }

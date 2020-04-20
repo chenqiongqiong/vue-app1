@@ -4,9 +4,10 @@ import Foo from './components/Foo.vue';
 import Bar from './components/Bar.vue';
 import NotFoundComponent from './components/NotFoundComponent.vue';
 import VueRouter from 'vue-router';
-import './plugins/element.js'
+import myPlugin from './plugins/myPlugin.js';
 
 Vue.use(VueRouter);
+Vue.use(myPlugin, {abc: 123});
 
 Vue.config.productionTip = false
 
