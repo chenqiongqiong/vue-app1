@@ -12,7 +12,7 @@ npm install
 npm run serve111
 ```
 
-### Compiles and minifies for production
+### Compiles and minifies for pjjjjroduction
 
 ```
 npm run build
